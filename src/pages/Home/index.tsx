@@ -1,7 +1,10 @@
+import { Intro } from "./components/intro"
+import { HomeContainer } from "./styles"
+
 export const HomePage = () => {
     return(
-        <div>
-            <h1>Home</h1>
-        </div>
+        <HomeContainer>
+            <Intro />
+        </HomeContainer>
     )
 }
