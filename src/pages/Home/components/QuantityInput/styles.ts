@@ -16,6 +16,7 @@ export const QuantityInputContainer = styled.div`
         width: 100%;
         background: none;
         border: none;
+        height: 2.5rem;
         color: ${({theme}) => theme.colors["base-title"]};
 
         &:focus {
@@ -25,7 +26,20 @@ export const QuantityInputContainer = styled.div`
 `
 
 export const IconWrapper = styled.button.attrs({
-    type: 'button',
-})`
-
-`   
+    type: "button",
+  })`
+    width: 0.875rem;
+    height: 0.875rem;
+    border: none;
+    background: none;
+    color: ${({ theme }) => theme.colors["brand-purple"]};
+    transition: 0.4s;
+  
+    &:disabled {
+      opacity: 0.4;
+    }
+  
+    &:not(:disabled):hover {
+      color: ${({ theme }) => theme.colors["brand-purple-dark"]};
+    }
+  `;  

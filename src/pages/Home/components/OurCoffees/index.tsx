@@ -2,6 +2,8 @@ import { CoffeeList, OurCoffeesContainer } from "./styles"
 import { TitleText } from "../../../../components/Typografy"
 import { CoffeeCard } from "../CoffeeCard"
 
+import { coffees } from '../../../../data/coffees'
+
 export const OurCoffees = () => {
     return (
         <OurCoffeesContainer className="container">
@@ -10,17 +12,9 @@ export const OurCoffees = () => {
             </TitleText>
 
             <CoffeeList>
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
-                <CoffeeCard />
+                {coffees.map((coffee) => (
+                    <CoffeeCard key={coffee.id} coffee={coffee}/>
+                ))}
             </CoffeeList>
         </OurCoffeesContainer>
     )
