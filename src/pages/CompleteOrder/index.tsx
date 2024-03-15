@@ -1,7 +1,10 @@
+import { CompleteOrderForm } from './components/CompleteOrderForm'
+import * as C from './styles'
+
 export const CompleteOrderPage = () => {
-    return(
-        <div>
-            <h1>Complete Order</h1>
-        </div>
+    return (
+        <C.CompleteOrderContainer className='container'>
+            <CompleteOrderForm />
+        </C.CompleteOrderContainer>
     )
 }
