@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { CoffeeTypes } from '../interfaces/CoffeeTypes'
 import { produce } from 'immer'
+import { toast } from 'react-toastify'
 
 export interface CartItem extends CoffeeTypes {
     quantity: number,
@@ -27,8 +28,10 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         const newCart = produce(cartItems, (draft) => {
             if (coffeeAlreadyExistsInCart < 0) {
                 draft.push(coffee)
+                toast.success(`${coffee.name} Adicionado ao carrinho!`)
             } else {
                 draft[coffeeAlreadyExistsInCart].quantity += coffee.quantity
+                toast.success(`Outro(a) ${coffee.name} Adicionado ao carrinho!`)
             }
         })
 

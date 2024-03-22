@@ -1,3 +1,5 @@
+import 'react-toastify/dist/ReactToastify.css'
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Router } from './Routes.tsx'
@@ -6,6 +8,7 @@ import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from './styles/theme/default.ts'
 import { BrowserRouter } from 'react-router-dom'
 import { CartContextProvider } from './context/CartContext.tsx'
+import { ToastContainer } from 'react-toastify'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -13,8 +16,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <CartContextProvider>
           <Router />
+          <ToastContainer />
+          <GlobalStyle />
         </CartContextProvider>
-        <GlobalStyle />
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
