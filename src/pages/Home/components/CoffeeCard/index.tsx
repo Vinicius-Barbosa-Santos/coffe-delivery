@@ -6,7 +6,7 @@ import { ShoppingCart } from "phosphor-react"
 
 import { priceFormatter } from '../../../../utils/priceFormater'
 
-interface CoffeeCardProps {
+export interface CoffeeCardProps {
     coffee: {
         id: number,
         tags: string[],
