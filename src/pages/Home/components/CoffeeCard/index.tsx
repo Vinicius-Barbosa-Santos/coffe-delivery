@@ -6,18 +6,25 @@ import { ShoppingCart } from "phosphor-react"
 
 import { priceFormatter } from '../../../../utils/priceFormater'
 
+import { CoffeeTypes } from '../../../../interfaces/CoffeeTypes'
+import { useCart } from "../../../../context/CartContext"
+
 export interface CoffeeCardProps {
-    coffee: {
-        id: number,
-        tags: string[],
-        name: string,
-        description: string,
-        photo: string,
-        price: number
-    }
+    coffee: CoffeeTypes
 }
 
 export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
+
+    const { addCoffeeToCart } = useCart()
+
+    const handleAddToCart = () => {
+        const coffeeToAdd = {
+            ...coffee,
+            quantity: 1
+        }
+
+        addCoffeeToCart(coffeeToAdd)
+    }
 
     const formattedPrice = priceFormatter(coffee.price)
 
@@ -42,7 +49,7 @@ export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
 
                 <AddCartWrapper>
                     <QuantityInput />
-                    <button>
+                    <button onClick={handleAddToCart}>
                         <ShoppingCart weight="fill" size={22} />
                     </button>
                 </AddCartWrapper>
