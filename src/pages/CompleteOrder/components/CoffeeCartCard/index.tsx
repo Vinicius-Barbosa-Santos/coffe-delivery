@@ -1,20 +1,48 @@
 import * as C from './styles'
 
-import coffeeImage from '../../../../../public/coffees/americano.png'
 import { RegularText } from '../../../../components/Typografy'
 import { QuantityInput } from '../../../Home/components/QuantityInput'
 import { Trash } from 'phosphor-react'
+import { CartItem, useCart } from '../../../../context/CartContext'
+import { priceFormatter } from '../../../../utils/priceFormater'
 
-export const CoffeeCartCard = () => {
+interface CoffeeCartCardProps {
+    coffee: CartItem
+}
+
+export const CoffeeCartCard = ({ coffee }: CoffeeCartCardProps) => {
+
+    const { changeCartItemQuantity, removeCartItem } = useCart()
+
+    const handleIncrease = () => {
+        changeCartItemQuantity(coffee.id, 'increase')
+    }
+
+    const handleDecrease = () => {
+        changeCartItemQuantity(coffee.id, 'decrease')
+    }
+
+    const handleRemove = () => {
+        removeCartItem(coffee.id)
+    }
+
+    const coffeeTotal = coffee.price * coffee.quantity
+    const formattedPrice = priceFormatter(coffeeTotal)
+
     return (
         <C.CoffeeCartCardContainer>
             <div>
-                <img src={coffeeImage} alt="" />
+                <img src={coffee.photo} alt="" />
                 <div>
-                    <RegularText color='subtitle'>Expresso Tradicional</RegularText>
+                    <RegularText color='subtitle'>{coffee.name}</RegularText>
                     <C.ActionsContainer>
-                        <QuantityInput size="small" />
-                        <C.RemoveButton>
+                        <QuantityInput
+                            size="small"
+                            onIncrease={handleIncrease}
+                            onDecrease={handleDecrease}
+                            quantity={coffee.quantity}
+                        />
+                        <C.RemoveButton onClick={handleRemove}>
                             <Trash size={16} />
                             REMOVER
                         </C.RemoveButton>
@@ -22,7 +50,7 @@ export const CoffeeCartCard = () => {
                 </div>
             </div>
 
-            <p>R$ 9,90</p>
+            <p>R$ {formattedPrice}</p>
         </C.CoffeeCartCardContainer>
     )
 }

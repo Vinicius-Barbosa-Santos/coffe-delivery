@@ -1,19 +1,22 @@
 import { TitleText } from '../../../../components/Typografy'
+import { useCart } from '../../../../context/CartContext'
 import { CoffeeCartCard } from '../CoffeeCartCard'
 import { ConfirmationSection } from './ConfirmationSection'
 import * as C from './styles'
 
 export const SelectedCoffees = () => {
-    return(
+    const { cartItems } = useCart()
+
+    return (
         <C.SelectedContainer>
             <TitleText size='xs' color='subtitle'>
                 Cafés selecionados
             </TitleText>
 
             <C.DetailsContainer>
-                <CoffeeCartCard />
-                <CoffeeCartCard />
-                <CoffeeCartCard />
+                {cartItems.map((item) => (
+                    <CoffeeCartCard key={item.id} coffee={item} />
+                ))}
 
                 <ConfirmationSection />
             </C.DetailsContainer>

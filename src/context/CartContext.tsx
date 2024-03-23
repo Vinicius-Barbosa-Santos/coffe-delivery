@@ -10,7 +10,9 @@ export interface CartItem extends CoffeeTypes {
 interface CartContextType {
     cartItems: CartItem[],
     cartQuantity: number,
-    addCoffeeToCart: (coffee: CartItem) => void
+    addCoffeeToCart: (coffee: CartItem) => void,
+    changeCartItemQuantity: (cartItemid: number, type: 'increase' | 'decrease') => void,
+    removeCartItem: (cartItemId: number) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -41,10 +43,39 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         setCartItems(newCart)
     }
 
-    console.log(cartItems)
+    const changeCartItemQuantity = (cartItemid: number, type: 'increase' | 'decrease') => {
+        const newCart = produce(cartItems, (draft) => {
+            const coffeeExistsInCart = cartItems.findIndex(cartItem => cartItem.id === cartItemid)
+
+            if (coffeeExistsInCart >= 0) {
+                const item = draft[coffeeExistsInCart]
+                draft[coffeeExistsInCart].quantity = type === 'increase' ? item.quantity + 1 : item.quantity - 1
+            }
+        })
+
+        setCartItems(newCart)
+    }
+
+    const removeCartItem = (cartItemId: number) => {
+        const newCart = produce(cartItems, draft => {
+            const coffeeExistsInCart = cartItems.findIndex(cartItem => cartItem.id === cartItemId)
+
+            if (coffeeExistsInCart >= 0) {
+                draft.splice(coffeeExistsInCart, 1)
+            }
+        })
+
+        setCartItems(newCart)
+    }
 
     return (
-        <CartContext.Provider value={{ cartItems, cartQuantity, addCoffeeToCart }}>
+        <CartContext.Provider value={{
+            cartItems,
+            cartQuantity,
+            addCoffeeToCart,
+            changeCartItemQuantity,
+            removeCartItem
+        }}>
             {children}
         </CartContext.Provider>
     )
