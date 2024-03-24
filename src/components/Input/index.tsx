@@ -8,9 +8,9 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ({ error, ...props }, ref) => {
+    ({ error, className, ...props }, ref) => {
         return (
-            <C.InputWrapper>
+            <C.InputWrapper className={className}>
                 <C.InputStyleContainer {...props} ref={ref} />
                 {error && (
                     <RegularText size='s'>{error}</RegularText>

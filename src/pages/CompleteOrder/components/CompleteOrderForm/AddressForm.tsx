@@ -29,28 +29,40 @@ export const AddressForm = () => {
                 placeholder='Rua'
                 className='street'
                 type='number'
+                {...register('street')}
+                error={errors.street?.message}
             />
 
             <Input
                 placeholder='Número'
                 type='number'
+                {...register('number')}
+                error={errors.number?.message}
             />
 
             <Input
                 placeholder='Complemento'
                 className='complement'
+                {...register('complement')}
+                error={errors.complement?.message}
             />
 
             <Input
                 placeholder='Bairro'
+                {...register('district')}
+                error={errors.district?.message}
             />
 
             <Input
                 placeholder='Cidade'
+                {...register('city')}
+                error={errors.city?.message}
             />
 
             <Input
                 placeholder='UF'
+                {...register('uf')}
+                error={errors.uf?.message}
             />
         </C.AddressFormContainer>
     )
