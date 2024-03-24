@@ -1,74 +1,85 @@
-import { AddCartWrapper, CardFooter, CoffeeCardContainer, Description, Name, Tags } from "./styles"
+import { QuantityInput } from "../../../../components/QuantityInput";
+import { RegularText, TitleText } from "../../../../components/Typography";
+import {
+  CoffeeCardContainer,
+  Tags,
+  Name,
+  Description,
+  CardFooter,
+  AddCartWrapper,
+} from "./styles";
+import { ShoppingCart } from "phosphor-react";
+import { useState } from "react";
+import { useCart } from "../../../../hooks/useCart";
+import { formatMoney } from "../../../../utils/formatMoney";
 
-import { RegularText, TitleText } from "../../../../components/Typografy"
-import { QuantityInput } from "../QuantityInput"
-import { ShoppingCart } from "phosphor-react"
-
-import { priceFormatter } from '../../../../utils/priceFormater'
-
-import { CoffeeTypes } from '../../../../interfaces/CoffeeTypes'
-import { useCart } from "../../../../context/CartContext"
-import { useState } from "react"
-
-export interface CoffeeCardProps {
-    coffee: CoffeeTypes
+export interface Coffee {
+  id: number;
+  tags: string[];
+  name: string;
+  description: string;
+  photo: string;
+  price: number;
 }
 
-export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
+interface CoffeeProps {
+  coffee: Coffee;
+}
 
-    const [quantity, setQuantity] = useState(1)
+export function CoffeeCard({ coffee }: CoffeeProps) {
+  const [quantity, setQuantity] = useState(1);
 
-    const { addCoffeeToCart } = useCart()
+  function handleIncrease() {
+    setQuantity((state) => state + 1);
+  }
 
-    const handleIncrease = () => {
-        setQuantity(state => state + 1)
-    }
+  function handleDecrease() {
+    setQuantity((state) => state - 1);
+  }
 
-    const handleDecrease = () => {
-        setQuantity(state => state - 1)
-    }
+  const { addCoffeeToCart } = useCart();
 
-    const handleAddToCart = () => {
-        const coffeeToAdd = {
-            ...coffee,
-            quantity
-        }
+  function handleAddToCart() {
+    const coffeeToAdd = {
+      ...coffee,
+      quantity,
+    };
+    addCoffeeToCart(coffeeToAdd);
+  }
 
-        addCoffeeToCart(coffeeToAdd)
-    }
+  const formattedPrice = formatMoney(coffee.price);
 
-    const formattedPrice = priceFormatter(coffee.price)
+  return (
+    <CoffeeCardContainer>
+      <img src={`/coffees/${coffee.photo}`} />
+      <Tags>
+        {coffee.tags.map((tag) => (
+          <span key={`${coffee.id}${tag}`}>{tag}</span>
+        ))}
+      </Tags>
 
-    return (
-        <CoffeeCardContainer>
-            <img src={coffee.photo} alt="" />
+      <Name>{coffee.name}</Name>
+      <Description>{coffee.description}</Description>
 
-            <Tags>
-                {coffee.tags.map((tag) => (
-                    <span key={`${coffee.id} ${tag}`}>{tag}</span>
-                ))}
-            </Tags>
+      <CardFooter>
+        <div>
+          <RegularText size="s">R$</RegularText>
+          <TitleText size="m" color="text" as="strong">
+            {formattedPrice}
+          </TitleText>
+        </div>
 
-            <Name>{coffee.name}</Name>
-            <Description>{coffee.description}</Description>
-
-            <CardFooter>
-                <div>
-                    <RegularText size="s">R$</RegularText>
-                    <TitleText size="m" color="text" as={'strong'}>{formattedPrice}</TitleText>
-                </div>
-
-                <AddCartWrapper>
-                    <QuantityInput
-                        onIncrease={handleIncrease}
-                        onDecrease={handleDecrease}
-                        quantity={quantity}
-                    />
-                    <button onClick={handleAddToCart}>
-                        <ShoppingCart weight="fill" size={22} />
-                    </button>
-                </AddCartWrapper>
-            </CardFooter>
-        </CoffeeCardContainer>
-    )
+        <AddCartWrapper>
+          <QuantityInput
+            onIncrease={handleIncrease}
+            onDecrease={handleDecrease}
+            quantity={quantity}
+          />
+          <button onClick={handleAddToCart}>
+            <ShoppingCart weight="fill" size={22} />
+          </button>
+        </AddCartWrapper>
+      </CardFooter>
+    </CoffeeCardContainer>
+  );
 }

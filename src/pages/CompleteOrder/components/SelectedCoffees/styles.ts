@@ -1,27 +1,27 @@
 import styled from "styled-components";
 import { SectionBaseStyle } from "../../styles";
 
-export const SelectedContainer = styled.div`
-    display: flex;
-    gap: 0.75rem;
-    width: 40rem;
-    flex-direction: column;
-` 
+export const SelectedCoffeesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 40rem;
+`;
 
 export const DetailsContainer = styled(SectionBaseStyle)`
-    display: flex;
-    border-radius: 6px 44px 6px 44px;
-    flex-direction: column;
-`
+  border-radius: 6px 44px 6px 44px;
+  display: flex;
+  flex-direction: column;
+`;
 
 export const ConfirmationSectionContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 
-    > div {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-`
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+`;

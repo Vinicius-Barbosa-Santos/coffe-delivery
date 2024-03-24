@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RegularText, TitleText } from "../../../../components/Typografy";
+import { RegularText, TitleText } from "../../../../components/Typography";
 
 export const CoffeeCardContainer = styled.div`
   width: 100%;
@@ -10,7 +10,6 @@ export const CoffeeCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
 
   img {
@@ -44,8 +43,8 @@ export const Tags = styled.div`
 export const Name = styled(TitleText).attrs({
   size: "s",
   color: "subtitle",
-  weight: "700",
 })`
+  font-weight: 700;
   margin-bottom: 0.5rem;
 `;
 
@@ -71,7 +70,7 @@ export const CardFooter = styled.div`
       line-height: 0.75rem;
     }
   }
-`
+`;
 
 export const AddCartWrapper = styled.div`
   width: 7.5rem;

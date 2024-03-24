@@ -1,25 +1,25 @@
-import { TitleText } from '../../../../components/Typografy'
-import { useCart } from '../../../../context/CartContext'
-import { CoffeeCartCard } from '../CoffeeCartCard'
-import { ConfirmationSection } from './ConfirmationSection'
-import * as C from './styles'
+import { useCart } from "../../../../hooks/useCart";
+import { TitleText } from "../../../../components/Typography";
+import { CoffeeCartCard } from "../CoffeeCartCard";
+import { ConfirmationSection } from "./ConfirmationSection";
+import { DetailsContainer, SelectedCoffeesContainer } from "./styles";
 
-export const SelectedCoffees = () => {
-    const { cartItems } = useCart()
+export function SelectedCoffees() {
+  const { cartItems } = useCart();
 
-    return (
-        <C.SelectedContainer>
-            <TitleText size='xs' color='subtitle'>
-                Cafés selecionados
-            </TitleText>
+  return (
+    <SelectedCoffeesContainer>
+      <TitleText size="xs" color="subtitle">
+        Cafés selecionados
+      </TitleText>
 
-            <C.DetailsContainer>
-                {cartItems.map((item) => (
-                    <CoffeeCartCard key={item.id} coffee={item} />
-                ))}
+      <DetailsContainer>
+        {cartItems.map((item) => (
+          <CoffeeCartCard key={item.id} coffee={item} />
+        ))}
 
-                <ConfirmationSection />
-            </C.DetailsContainer>
-        </C.SelectedContainer>
-    )
+        <ConfirmationSection />
+      </DetailsContainer>
+    </SelectedCoffeesContainer>
+  );
 }

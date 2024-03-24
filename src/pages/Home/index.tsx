@@ -1,12 +1,13 @@
-import { OurCoffees } from "./components/OurCoffees"
-import { Intro } from "./components/intro"
-import { HomeContainer } from "./styles"
+import { Intro } from "./components/Intro";
+import { OurCoffees } from "./components/OurCoffees";
+import { HomeContainer } from "./styles";
 
-export const HomePage = () => {
-    return (
-        <HomeContainer>
-            <Intro />
-            <OurCoffees />
-        </HomeContainer>
-    )
+export function HomePage() {
+  return (
+    <HomeContainer>
+      <Intro />
+
+      <OurCoffees />
+    </HomeContainer>
+  );
 }

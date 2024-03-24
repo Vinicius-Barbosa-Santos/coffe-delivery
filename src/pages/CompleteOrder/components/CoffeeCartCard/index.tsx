@@ -1,56 +1,60 @@
-import * as C from './styles'
-
-import { RegularText } from '../../../../components/Typografy'
-import { QuantityInput } from '../../../Home/components/QuantityInput'
-import { Trash } from 'phosphor-react'
-import { CartItem, useCart } from '../../../../context/CartContext'
-import { priceFormatter } from '../../../../utils/priceFormater'
+import { QuantityInput } from "../../../../components/QuantityInput";
+import { RegularText } from "../../../../components/Typography";
+import {
+  ActionsContainer,
+  CoffeeCartCardContainer,
+  RemoveButton,
+} from "./styles";
+import { Trash } from "phosphor-react";
+import { CartItem } from "../../../../contexts/CartContext";
+import { useCart } from "../../../../hooks/useCart";
+import { formatMoney } from "../../../../utils/formatMoney";
 
 interface CoffeeCartCardProps {
-    coffee: CartItem
+  coffee: CartItem;
 }
 
-export const CoffeeCartCard = ({ coffee }: CoffeeCartCardProps) => {
+export function CoffeeCartCard({ coffee }: CoffeeCartCardProps) {
+  const { changeCartItemQuantity, removeCartItem } = useCart();
 
-    const { changeCartItemQuantity, removeCartItem } = useCart()
+  function handleIncrease() {
+    changeCartItemQuantity(coffee.id, "increase");
+  }
 
-    const handleIncrease = () => {
-        changeCartItemQuantity(coffee.id, 'increase')
-    }
+  function handleDecrease() {
+    changeCartItemQuantity(coffee.id, "decrease");
+  }
 
-    const handleDecrease = () => {
-        changeCartItemQuantity(coffee.id, 'decrease')
-    }
+  function handleRemove() {
+    removeCartItem(coffee.id);
+  }
 
-    const handleRemove = () => {
-        removeCartItem(coffee.id)
-    }
+  const coffeeTotal = coffee.price * coffee.quantity;
 
-    const coffeeTotal = coffee.price * coffee.quantity
-    const formattedPrice = priceFormatter(coffeeTotal)
+  const formattedPrice = formatMoney(coffeeTotal);
 
-    return (
-        <C.CoffeeCartCardContainer>
-            <div>
-                <img src={coffee.photo} alt="" />
-                <div>
-                    <RegularText color='subtitle'>{coffee.name}</RegularText>
-                    <C.ActionsContainer>
-                        <QuantityInput
-                            size="small"
-                            onIncrease={handleIncrease}
-                            onDecrease={handleDecrease}
-                            quantity={coffee.quantity}
-                        />
-                        <C.RemoveButton onClick={handleRemove}>
-                            <Trash size={16} />
-                            REMOVER
-                        </C.RemoveButton>
-                    </C.ActionsContainer>
-                </div>
-            </div>
+  return (
+    <CoffeeCartCardContainer>
+      <div>
+        <img src={`/coffees/${coffee.photo}`} />
+        <div>
+          <RegularText color="subtitle">{coffee.name}</RegularText>
+          <ActionsContainer>
+            <QuantityInput
+              onIncrease={handleIncrease}
+              onDecrease={handleDecrease}
+              quantity={coffee.quantity}
+              size="small"
+            />
+            <RemoveButton type="button" onClick={handleRemove}>
+              <Trash size={16} />
+              REMOVER
+            </RemoveButton>
+          </ActionsContainer>
+        </div>
+      </div>
 
-            <p>R$ {formattedPrice}</p>
-        </C.CoffeeCartCardContainer>
-    )
+      <p>R$ {formattedPrice}</p>
+    </CoffeeCartCardContainer>
+  );
 }

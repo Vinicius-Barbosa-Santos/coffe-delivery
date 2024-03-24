@@ -41,7 +41,6 @@ export const HeaderButton = styled.button<HeaderButtonProps>`
   border: none;
   padding: 0 0.5rem;
   position: relative;
-  font-size: ${({ theme }) => theme.textSizes["text-regular-s"]};
   cursor: inherit;
 
   span {
@@ -52,13 +51,14 @@ export const HeaderButton = styled.button<HeaderButtonProps>`
     top: calc(-1.25rem / 2);
     right: calc(-1.25rem / 2);
     color: ${({ theme }) => theme.colors["base-white"]};
-
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.75rem;
     font-weight: 700;
   }
+
+  font-size: ${({ theme }) => theme.textSizes["text-regular-s"]};
 
   ${({ variant }) => css`
     background: ${({ theme }) => theme.colors[`brand-${variant}-light`]};

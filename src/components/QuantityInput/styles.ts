@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-interface QuantityInputContainerProps {
-  size?: "medium" | "small";
+export interface QuantityInputContainerProps {
+  size: "medium" | "small";
 }
 
 export const QuantityInputContainer = styled.div<QuantityInputContainerProps>`
@@ -18,7 +18,6 @@ export const QuantityInputContainer = styled.div<QuantityInputContainerProps>`
     width: 100%;
     background: none;
     border: none;
-    height: 2.5rem;
     color: ${({ theme }) => theme.colors["base-title"]};
 
     &:focus {
@@ -29,13 +28,13 @@ export const QuantityInputContainer = styled.div<QuantityInputContainerProps>`
   ${({ size }) =>
     size === "medium" &&
     css`
-      padding: 0rem 0.5rem;
+      padding: 0.5rem;
     `}
 
-    ${({ size }) =>
+  ${({ size }) =>
     size === "small" &&
     css`
-      padding: 0rem 0.3rem;
+      padding: 0.3rem 0.5rem;
     `}
 `;
 

@@ -1,13 +1,13 @@
 import styled from "styled-components";
-
+import introBackgroundImg from "../../../../assets/intro-background.png";
+import { TitleText } from "../../../../components/Typography";
 import { rgba } from "polished";
-import introBackground from "../../../../assets/intro-background.svg";
-import { TitleText } from "../../../../components/Typografy";
 
 export const IntroContainer = styled.section`
   width: 100%;
   height: 34rem;
-  background: ${({ theme }) => `url(${introBackground}) no-repeat center,
+
+  background: ${({ theme }) => `url(${introBackgroundImg}) no-repeat center,
       linear-gradient(
         0deg,
         ${theme.colors["base-white"]} 0%,
@@ -18,21 +18,20 @@ export const IntroContainer = styled.section`
 
   display: flex;
   align-items: center;
-
   justify-content: center;
 `;
 
 export const IntroContent = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 3.5rem;
 `;
 
-
 export const IntroTitle = styled(TitleText)`
   margin-bottom: 1rem;
-`
+`;
 
 export const BenefitsContainer = styled.div`
   width: 100%;
