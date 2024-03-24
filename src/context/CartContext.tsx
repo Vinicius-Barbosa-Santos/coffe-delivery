@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { CoffeeTypes } from '../interfaces/CoffeeTypes'
 import { produce } from 'immer'
 import { toast } from 'react-toastify'
@@ -10,6 +10,7 @@ export interface CartItem extends CoffeeTypes {
 interface CartContextType {
     cartItems: CartItem[],
     cartQuantity: number,
+    cartItemsTotal: number,
     addCoffeeToCart: (coffee: CartItem) => void,
     changeCartItemQuantity: (cartItemid: number, type: 'increase' | 'decrease') => void,
     removeCartItem: (cartItemId: number) => void
@@ -21,11 +22,25 @@ interface CartContextProviderProps {
     children: ReactNode
 }
 
+const COFFEE_ITEMS_STORAGE_KEY = "coffeeDelivery:cartItems"
+
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
-    const [cartItems, setCartItems] = useState<CartItem[]>([])
+    const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+        const storedCartItems = localStorage.getItem(COFFEE_ITEMS_STORAGE_KEY)
+
+        if (storedCartItems) {
+            return JSON.parse(storedCartItems)
+        }
+
+        return []
+    })
 
     const cartQuantity = cartItems.length
+
+    const cartItemsTotal = cartItems.reduce((total, cartItem) => {
+        return total + cartItem.price * cartItem.quantity;
+    }, 0);
 
     const addCoffeeToCart = (coffee: CartItem) => {
         const coffeeAlreadyExistsInCart = cartItems.findIndex(cartItem => cartItem.id === coffee.id)
@@ -68,13 +83,18 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         setCartItems(newCart)
     }
 
+    useEffect(() => {
+        localStorage.setItem(COFFEE_ITEMS_STORAGE_KEY, JSON.stringify(cartItems))
+    }, [cartItems])
+
     return (
         <CartContext.Provider value={{
             cartItems,
             cartQuantity,
             addCoffeeToCart,
             changeCartItemQuantity,
-            removeCartItem
+            removeCartItem,
+            cartItemsTotal
         }}>
             {children}
         </CartContext.Provider>
