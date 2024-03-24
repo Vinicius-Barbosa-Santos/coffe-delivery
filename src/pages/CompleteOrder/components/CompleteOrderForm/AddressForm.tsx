@@ -28,7 +28,7 @@ export const AddressForm = () => {
             <Input
                 placeholder='Rua'
                 className='street'
-                type='number'
+                type='text'
                 {...register('street')}
                 error={errors.street?.message}
             />
@@ -45,6 +45,7 @@ export const AddressForm = () => {
                 className='complement'
                 {...register('complement')}
                 error={errors.complement?.message}
+                rightText='Opcional'
             />
 
             <Input
