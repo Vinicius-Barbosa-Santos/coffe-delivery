@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img alt="Projeto" src="https://github.com/Vinicius-Barbosa-Santos/ignite-shop/blob/master/github/shop.png">
+  <img alt="Projeto" src="https://github.com/Vinicius-Barbosa-Santos/coffe-delivery/blob/master/github/capa_coffe.png">
 </p>
 
 <br>
