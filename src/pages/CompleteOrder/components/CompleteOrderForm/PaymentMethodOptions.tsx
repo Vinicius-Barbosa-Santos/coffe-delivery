@@ -40,7 +40,6 @@ export function PaymentMethodOptions() {
           {...register("paymentMethod")}
         />
       ))}
-      
 
       {paymentMethodError && <RegularText>{paymentMethodError}</RegularText>}
     </PaymentMethodOptionsContainer>

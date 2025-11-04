@@ -14,6 +14,17 @@ export const OrderConfirmedContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    img {
+      width: 100%;
+      max-width: 30rem;
+      height: auto;
+    }
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      gap: 2rem;
+    }
   }
 `;
 
@@ -34,5 +45,10 @@ export const OrderDetailsContainer = styled.div`
     z-index: -1;
     border-radius: 7px 37px 7px 37px;
     background: linear-gradient(102.89deg, #dbac2c 2.61%, #8047f8 98.76%);
+  }
+
+  @media (max-width: 900px) {
+    min-width: initial;
+    width: 100%;
   }
 `;
